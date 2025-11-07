@@ -1,0 +1,52 @@
+Design summary (requirements fulfilled)
+
+Rich product model (beyond basic fields).
+
+Inventory tracked at product and variant level.
+
+Categories as a separate module; products can belong to many categories (many-to-many).
+
+Variants supported (size/color/sku/price/stock).
+
+Discounts omitted for now.
+
+Complete filtering, sorting, pagination.
+
+Admin-only create/update/delete; public read.
+
+Reviews & ratings included.
+
+Multiple images per product.
+
+Soft publish/unpublish + permanent delete option for admins.
+
+
+
+
+5) Images / Uploads
+
+Use @UseInterceptors(FilesInterceptor('images')) in the controller and a storage option:
+
+Local disk (fast for dev) or Cloudinary/S3 (recommended for production).
+
+Save returned URL into ProductImage.url and mark one primary image.
+
+I can implement a Cloudinary upload flow or a local multer example — say which you prefer.
+
+6) Indexing & performance tips
+
+Add DB indexes on product.name, product.price, category.name.
+
+Consider full-text index on name + description for search (MySQL/MariaDB => FULLTEXT).
+
+When using AVG(reviews.rating) in queries, use precomputed aggregated columns (e.g., ratingAvg on Product) for large datasets. Update aggregates on review creation/update.
+
+Limit leftJoinAndSelect in list endpoints (fetch only necessary relations) — fetch details in findOne.
+
+7) Security & business rules
+
+Only @Roles('admin') endpoints for create/update/delete/publish/unpublish.
+
+Customers can create reviews — enforce “one review per user per product” in the review service.
+
+Prevent updating protected fields (e.g., don't let customers change isPublished).

@@ -12,12 +12,15 @@ import { PaymentGateway } from '../services/payment.gateway';
 import { Public } from 'src/shared/decorators/public.decorators';
 import { InvoiceQueue } from 'src/shared/background_runners/queues/invoice.queue';
 import { OrderQueue } from 'src/shared/background_runners/queues/order.queue';
+import { ShipmentService } from 'src/modules/shipment/service/shipment.service';
+
 
 @Controller('webhooks/paystack')
 export class PaystackWebhookController {
   private readonly logger = new Logger(PaystackWebhookController.name);
 
   constructor(
+    private shipmentService: ShipmentService,
     private orderQueue: OrderQueue,
     private invoiceQueue: InvoiceQueue,
     private readonly ordersService: OrdersService,
@@ -102,6 +105,7 @@ export class PaystackWebhookController {
       if (status === 'success') {
         const fullname = `${order.user.firstname} ${order.user.lastname}`;
         await this.paymentGateway.markOrderPaid(order, verifyData.data);
+        await this.shipmentService.createShipment(order.id, 'Default Courier');
         await this.ordersService.updateStockAfterOrder(order.id);
         console.log("Queuing invoice generation and email...");
         await this.invoiceQueue.queueInvoiceGeneration(order.id, order.user.email);

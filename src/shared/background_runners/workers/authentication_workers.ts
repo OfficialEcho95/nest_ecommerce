@@ -2,11 +2,17 @@ import { Worker } from "bullmq";
 import { transporter } from "nodemailer.setup";
 import { RedisServer } from "redisServer";
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from "@nestjs/config";
 
-@Injectable() 
+ConfigService
+
+@Injectable()
 export class AuthenticationWorkers {
     public registrationWorker: Worker;
-    constructor(private redisServer: RedisServer) {
+    constructor(
+        private redisServer: RedisServer,
+        private configService: ConfigService,
+    ) {
         this.registrationWorker = new Worker('authentication',
             async job => {
                 switch (job.name) {
@@ -37,7 +43,7 @@ export class AuthenticationWorkers {
 
     async newUserRegistration(email: string, message: string) {
         await transporter.sendMail({
-            from: "Nest E-Commerce 👻 <noreply@nestecommerce.com>",
+            from:  `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: email,
             subject: "Welcome to Nest E-Commerce ✔",
             text: message,
@@ -46,28 +52,48 @@ export class AuthenticationWorkers {
         console.log(`✅ Sent welcome email to ${email}`);
     }
 
-    async passwordReset({ email, token }) {
+    async passwordReset({ email, link }) {
         await transporter.sendMail({
-            from: "Nest E-Commerce 👻 <noreply@nestecommerce.com>",
+            from: `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: email,
-            subject: "Password Reset Request ✔",
-            text: `Use this token to reset your password: ${token}`,
-            html: `<b>Use this token to reset your password: ${token}</b>`,
+            subject: 'Password Reset Request',
+            html: `
+      <h2>Password Reset Requested</h2>
+      <p>We received a request to reset your password. Click below to set a new one:</p>
+      <a href="${link}" style="
+        background: #007bff;
+        color: white;
+        padding: 10px 16px;
+        text-decoration: none;
+        border-radius: 6px;
+        display: inline-block;
+      ">Reset Password</a>
+      <p>If you didn’t request this, please ignore this email.</p>
+      <p>${link}</p>
+    `,
         })
         console.log(`✅ Sent password reset to ${email}`);
     }
 
-    async emailVerification({ email, token }) {
+    async emailVerification({ email, link }) {
         await transporter.sendMail({
-            from: "Nest E-Commerce 👻 <>",
+            from: `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: email,
-            subject: "Email Verification ✔",
-            text: `Use this token to verify your email: ${token}`,
-            html: `<b>Use this token to verify your email: ${token}</b>`,
+            subject: 'Verify Your Email Address',
+            html: `
+      <h2>Welcome to Nest E-Commerce!</h2>
+      <p>Click the link below to verify your email address:</p>
+      <a href="${link}" 
+         style="background:#4CAF50;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;">
+         Verify Email
+      </a>
+      <p>If the button doesn’t work, you can also copy and paste this link into your browser:</p>
+      <p>${link}</p>
+    `,
         })
 
         console.log(`✅ Sent email verification to ${email}`);
-    } 
+    }
 
 
     async successfulLoginNotification({ email }) {

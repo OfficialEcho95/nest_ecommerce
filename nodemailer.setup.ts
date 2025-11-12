@@ -14,11 +14,12 @@ class EtherealMailSetup {
 
       this.transporter = nodemailer.createTransport({
         host: "smtp.ethereal.email",
+        service: 'gmail',
         port: 587,
-        secure: false,
+        secure: false, 
         auth: {
-          user: testAccount.user,
-          pass: testAccount.pass,
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
         },
         connectionTimeout: 8000,
         greetingTimeout: 8000,

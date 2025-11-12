@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/users.entity';
+import { Shipment } from '../../shipment/entity/shipment.entity';
 export type OrderStatus = 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
 
 
@@ -56,6 +57,10 @@ export class Order {
 
   @Column({ nullable: true })
   paymentStatus?: string;
+
+  @ManyToOne(() => Shipment, (shipment) => shipment.order, { nullable: true })
+  shipment?: Shipment;
+
 }
 
 @Entity('order_items')

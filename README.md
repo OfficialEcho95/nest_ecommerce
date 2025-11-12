@@ -1,98 +1,166 @@
+<h1 align="center">🛍️ Nest E-Commerce Backend</h1>
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <b>A modern, scalable, and production-ready E-Commerce API built with NestJS.</b><br/>
+  Featuring payments, background jobs, email notifications, and modular architecture.
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  <img src="https://img.shields.io/badge/NestJS-v10-red?logo=nestjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/MySQL-8.0-orange?logo=mysql&logoColor=white" />
+  <img src="https://img.shields.io/badge/BullMQ-Queue-red?logo=redis&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" />
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Features
 
-## Project setup
+### 🧩 Core Modules
 
-```bash
-$ npm install
-```
+- **Users & Auth**
+  - JWT authentication (register, login, guards)
+  - Role-based access (Admin, Customer)
+- **Products & Categories**
+  - Full CRUD operations
+  - Product variants (e.g., color, size)
+  - Image uploads with file storage linking
+- **Orders**
+  - Order creation, payments, and automatic status updates
+  - Linked order items, shipment tracking, and invoice generation
+- **Shipments**
+  - Shipment creation with courier + tracking number
+  - Auto email notifications for “Shipped” and “Delivered”
+  - Background processing via BullMQ Workers
+- **Payments**
+  - Paystack integration with webhook verification
+  - Auto invoice generation + PDF email
+- **Reviews**
+  - Product review and rating system linked to authenticated users
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## ⚙️ Tech Stack
 
-# watch mode
-$ npm run start:dev
+| Layer | Technology |
+|-------|-------------|
+| **Framework** | [NestJS](https://nestjs.com/) |
+| **ORM** | [TypeORM](https://typeorm.io/) |
+| **Database** | MySQL |
+| **Queue** | BullMQ + Redis |
+| **Mailer** | Nodemailer |
+| **Payment Gateway** | Paystack |
+| **PDF Generation** | PDFKit / ReportLab |
+| **Environment** | dotenv |
+| **Language** | TypeScript |
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## 🧠 Architecture Overview
 
-```bash
-# unit tests
-$ npm run test
+This project follows **Domain-Driven Design (DDD)** principles.
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+Each module includes:
+- **Controller** → API endpoints  
+- **Service** → Business logic  
+- **Entity** → Database model  
+- **Repository** → Data access abstraction  
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 🔄 Background Jobs
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+All long-running or asynchronous tasks are processed via **BullMQ workers** (Redis-backed).
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+**Examples**
+- Shipment processing  
+- Sending email notifications  
+- Invoice generation  
+- Stock alerts  
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+```ts
+// Example queue dispatch
+await this.shipmentQueue.add('process-shipment', {
+  orderId,
+  shipmentId,
+});
 
-## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
+🧾 Example Workflow
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+User places an order → Order stored in DB
 
-## Support
+Payment processed via Paystack → Paystack webhook hits /paystack/webhook
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Order marked as PAID
 
-## Stay in touch
+Job queued → Generate and send invoice
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Shipment created → Worker sends shipment notification
 
-## License
+Delivery confirmed → Worker marks order as DELIVERED
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+Installation & Setup
+
+git clone https://github.com/yourusername/nest-ecommerce.git
+cd nest-ecommerce
+
+
+npm install
+
+Create .env file in project root:
+
+DATABASE_URL=mysql://root:password@localhost:3306/nest_shop
+REDIS_URL=redis://localhost:6379
+PAYSTACK_SECRET=sk_test_***
+MAIL_USER=youremail@example.com
+MAIL_PASS=yourpassword
+
+
+Run migrations:
+npm run migration:run
+
+
+API Testing
+
+Use Thunder Client or Postman to test endpoints.
+
+Example order creation payload:
+
+{
+  "userId": 1,
+  "items": [
+    { "variantId": 2, "quantity": 1 },
+    { "variantId": 5, "quantity": 2 }
+  ],
+  "address": "123 Ikoyi Crescent, Lagos",
+  "paymentMethod": "paystack"
+}
+
+
+Key Concepts Demonstrated
+
+Repository injection and clean DI architecture
+
+Queue-based async processing (BullMQ)
+
+Real-world payment lifecycle (Paystack webhook → order → invoice → email)
+
+Shipment workflow automation
+
+Scalable, modular NestJS structure
+
+Secure config with environment isolation
+
+Author
+
+
+Emmanuel Chukwu
+💼 Backend Developer | Node.js | NestJS | TypeScript
+📧 officialecho95@outlook.com
+
+<p align="center"> <a href="https://www.linkedin.com/in/emmanuelchukwu"> <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white" /> </a> <a href="mailto:officialecho95@outlook.com"> <img src="https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white" /> </a> </p>

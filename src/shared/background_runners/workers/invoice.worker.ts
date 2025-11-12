@@ -64,7 +64,7 @@ export class InvoiceWorker {
 
     async emailInvoice({ orderId, userEmail, filePath }: { orderId: number, userEmail: string, filePath: string }) {
         await transporter.sendMail({
-            from: `Nest E-commerce <noreply@nest.commerce.email>`,
+            from:  `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: userEmail,
             subject: `Your Invoice for Order #${orderId}`,
             text: `Dear Customer,\n\nPlease find attached the invoice for your recent order #${orderId}.\n\nThank you for shopping with us!\n\nBest regards,\nNest E-commerce Team`,

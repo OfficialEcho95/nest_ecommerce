@@ -10,6 +10,7 @@ import { RolesGuard } from './shared/guards/roles.guards';
 import { JwtAuthGuard } from './modules/auth/jwt.guard';
 import { ProductsModule } from './modules/products/products.module';
 import { OrdersModule } from './modules/orders/module/orders.module';
+import { ShipmentModule } from './modules/shipment/module/shipment.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -29,6 +30,7 @@ import { OrdersModule } from './modules/orders/module/orders.module';
       synchronize: false
     }),
   }),
+    ShipmentModule,
     ProductsModule,
     UsersModule,
     AuthModule,
@@ -39,6 +41,6 @@ import { OrdersModule } from './modules/orders/module/orders.module';
     { provide: APP_GUARD, useClass: JwtAuthGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
- 
+
 })
 export class AppModule { }

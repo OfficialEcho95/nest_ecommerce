@@ -42,6 +42,9 @@ export class User {
     })
     role: UserRole
 
+    @Column({ default: false })
+    isVerified: boolean
+
     @CreateDateColumn()
     createdAt: Date;
 

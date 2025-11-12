@@ -17,12 +17,12 @@ export class QueueAuthentication {
         await this.authenticationQueue.add('new-user-registration', { email, message });
     };
 
-    async queuePasswordReset (email:string, token: string) {
-        await this.authenticationQueue.add('password-reset', { email, token });
+    async queuePasswordReset (email:string, link: string) {
+        await this.authenticationQueue.add('password-reset', { email, link });
     };
 
-    async queueEmailVerification (email:string, token: string) {
-        await this.authenticationQueue.add('email-verification', { email, token });
+    async queueEmailVerification (email:string, link: string) {
+        await this.authenticationQueue.add('email-verification', { email, link });
     }
 
     async successfulLoginNotification (email:string) {

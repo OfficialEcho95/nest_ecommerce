@@ -2,7 +2,7 @@ import { Queue } from 'bullmq';
 import { RedisServer } from 'redisServer';
 import { Injectable } from '@nestjs/common';
 
-@Injectable() 
+@Injectable()
 export class InventoryQueue {
   public inventoryQueue: Queue;
 
@@ -12,8 +12,20 @@ export class InventoryQueue {
     });
   }
 
+  async queueNotifyWareHouseShipment(
+    email: string[],
+    productName: string,
+    stock: number,
+    orderId: number,
+    courier: string,
+    trackingNumber: string,
+    message?: string) {
+    await this.inventoryQueue.add('notify-warehouse',
+      { email, productName, stock, orderId, courier, trackingNumber, message })
+  }
+
   async queueNotifyWareHouse(email: string[], productName: string, stock: number) {
-    await this.inventoryQueue.add('notify-warehouse', {email, productName, stock})
+    await this.inventoryQueue.add('notify-warehouse', { email, productName, stock })
   }
 
   async queueRestockProduct(productId: number, quantity: number) {

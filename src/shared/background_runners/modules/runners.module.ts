@@ -6,6 +6,7 @@ import { PaymentQueue } from "src/shared/background_runners/queues/payment.queue
 import { RedisServer } from "redisServer";
 import { Module } from "@nestjs/common";
 import { RedisModule } from "redis.module";
+import { ShipmentService } from "src/modules/shipment/service/shipment.service";
 
 @Module({
     imports: [RedisModule],

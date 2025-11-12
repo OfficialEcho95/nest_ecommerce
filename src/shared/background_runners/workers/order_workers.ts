@@ -31,7 +31,7 @@ export class OrderWorkers {
 
     createOrder({ orderId, fullname, email, fullvariant, totalPrice }) {
         transporter.sendMail({
-            from: 'Nest E-Commerce 👻 <no-reply@nest-commerce.test>',
+            from:  `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: email,
             subject: 'Order Created ✔',
             text: `
@@ -53,7 +53,7 @@ export class OrderWorkers {
 
     cancelOrder({ orderId, fullname, email, fullvariant }) {
         transporter.sendMail({
-            from: 'Nest E-Commerce 👻 <no-reply@nest-commerce.test>',
+            from:  `"Nest E-Commerce" <${process.env.MAIL_USER}>`,
             to: email,
             subject: 'Order Created ✔',
             text: `

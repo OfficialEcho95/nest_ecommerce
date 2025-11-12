@@ -9,6 +9,7 @@ import { User } from "src/modules/users/entities/users.entity";
 import { ProductVariant } from "src/modules/products/entities/product-variant.entity";
 import { PaystackWebhookController } from "../controllers/paystack-webhook.controller";
 import { BackgroundRunnersModule } from "src/shared/background_runners/modules/runners.module";
+import { ShipmentModule } from "src/modules/shipment/module/shipment.module";
 
 
 @Module({
@@ -17,7 +18,8 @@ import { BackgroundRunnersModule } from "src/shared/background_runners/modules/r
         User,
         ProductVariant,]),
         HttpModule,
-        BackgroundRunnersModule
+        BackgroundRunnersModule,
+        ShipmentModule
     ],
     controllers: [OrdersController, PaystackWebhookController],
     providers: [OrdersService, PaymentGateway,

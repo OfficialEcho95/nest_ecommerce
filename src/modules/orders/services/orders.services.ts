@@ -179,6 +179,7 @@ export class OrdersService {
                 const emails = admins.map(a => a.email);
 
                 await queryRunner.manager.save(this.variantRepo.target, variant);
+                
                 if (variant.stock > 0 && variant.stock < 20) {
                     await this.inventoryQueue.queueNotifyWareHouse(emails, productName, variant.stock)
                 }

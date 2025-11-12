@@ -190,9 +190,9 @@ Secure config with environment isolation
 Author
 
 
-Emmanuel Chukwu
-💼 Backend Developer | Node.js | NestJS | TypeScript
-📧 [officialecho95@outlook.com](mailto:officialecho95@outlook.com)
+**Emmanuel Chukwu**  
+💼 Backend Developer | Node.js | NestJS | TypeScript  
+📧 <a href="mailto:officialecho95@outlook.com">officialecho95@outlook.com</a>
 
 <p align="center">
   <a href="https://www.linkedin.com/in/emmanuelchukwu">

@@ -187,21 +187,20 @@ Scalable, modular NestJS structure
 
 Secure config with environment isolation
 
-Author
-
+ 
+## 👨‍💻 Author
 
 **Emmanuel Chukwu**  
 💼 Backend Developer | Node.js | NestJS | TypeScript  
-📧 <a href="mailto:officialecho95@outlook.com">officialecho95@outlook.com</a>
+📧 [officialecho95@outlook.com](mailto:officialecho95@outlook.com)
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/emmanuelchukwu">
-    <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white" />
-  </a>
-  <a href="mailto:officialecho95@outlook.com">
-    <img src="https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white" />
-  </a>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/emmanuelchukwu)
+[![Email](https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white)](mailto:officialecho95@outlook.com)
+
 </p>
+
 
 
 

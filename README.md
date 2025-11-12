@@ -141,6 +141,37 @@ Example order creation payload:
   "paymentMethod": "paystack"
 }
 
+Paystack Webhook Payload (charge.success)
+{
+  "event": "charge.success",
+  "data": {
+    "id": 2858393021,
+    "domain": "live",
+    "status": "success",
+    "reference": "order_8_1762960588327",
+    "amount": 500000,
+    "gateway_response": "Successful",
+    "paid_at": "2025-11-12T15:39:36.000Z",
+    "created_at": "2025-11-12T15:38:58.000Z",
+    "channel": "card",
+    "currency": "NGN",
+    "customer": {
+      "email": "officialecho95@outlook.com",
+      "first_name": "Emmanuel",
+      "last_name": "Chukwu"
+    },
+    "authorization": {
+      "authorization_code": "AUTH_98abc123xyz",
+      "card_type": "visa",
+      "last4": "4242",
+      "bank": "Test Bank"
+    },
+    "metadata": {
+      "orderId": 8
+    }
+  }
+}
+
 
 Key Concepts Demonstrated
 
@@ -163,7 +194,6 @@ Emmanuel Chukwu
 💼 Backend Developer | Node.js | NestJS | TypeScript
 📧 [officialecho95@outlook.com](mailto:officialecho95@outlook.com)
 
-```html
 <p align="center">
   <a href="https://www.linkedin.com/in/emmanuelchukwu">
     <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white" />
@@ -172,4 +202,6 @@ Emmanuel Chukwu
     <img src="https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white" />
   </a>
 </p>
+
+
 

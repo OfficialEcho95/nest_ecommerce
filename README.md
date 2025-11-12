@@ -161,6 +161,15 @@ Author
 
 Emmanuel Chukwu
 💼 Backend Developer | Node.js | NestJS | TypeScript
-📧 officialecho95@outlook.com
+📧 [officialecho95@outlook.com](mailto:officialecho95@outlook.com)
 
-<p align="center"> <a href="https://www.linkedin.com/in/emmanuelchukwu"> <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white" /> </a> <a href="mailto:officialecho95@outlook.com"> <img src="https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white" /> </a> </p>
+```html
+<p align="center">
+  <a href="https://www.linkedin.com/in/emmanuelchukwu">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white" />
+  </a>
+  <a href="mailto:officialecho95@outlook.com">
+    <img src="https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white" />
+  </a>
+</p>
+

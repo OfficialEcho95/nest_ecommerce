@@ -190,17 +190,14 @@ Secure config with environment isolation
  
 ## 👨‍💻 Author
 
-**Emmanuel Chukwu**  
 💼 Backend Developer | Node.js | NestJS | TypeScript  
 📧 [officialecho95@outlook.com](mailto:officialecho95@outlook.com)
 
 <p align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/emmanuelchukwu)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/emmanuelchukwu)  
 [![Email](https://img.shields.io/badge/Email-Contact-blueviolet?logo=gmail&logoColor=white)](mailto:officialecho95@outlook.com)
 
 </p>
-
-
 
 
